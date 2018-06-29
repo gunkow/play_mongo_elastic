@@ -1,0 +1,28 @@
+Play from 2.4.4 to 2.4.11
+Reactivemongo from 0.11.0 to 0.11.14
+Scala Version from 2.11.6 to 2.11.8
+
+Method cursor in trait GenericQueryBuilder is deprecated. Add () in cursor call.
+
+From:
+collection.find(p_query).cursor[Person].collect[List]()
+
+To:
+collection.find(p_query).cursor[Person]().collect[List]()
+
+
+[warn] C:\Users\lenovo\workspace\play-reactivemongo-crud\app\models\PersonModel.
+scala:93: method db in class MongoConnection is deprecated: Must use [[apply]]
+[warn]  val db = connection.db("reactivemongo")
+[warn]                      ^
+[warn] one warning found
+
+Change to val db = Await.result(connection.database("reactivemongo"), Duration(5000, "millis"))
+
+
+[warn] C:\Users\lenovo\workspace\play-reactivemongo-crud\app\controllers\Applica
+tion.scala:115: method apply in object BSONObjectID is deprecated: `parse(str: S
+tring): Try[BSONObjectID]` should be considered instead of this method
+[warn]       val objectId = BSONObjectID(id)
+
+Change to val objectId = BSONObjectID.parse(id)

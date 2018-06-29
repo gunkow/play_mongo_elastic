@@ -1,0 +1,29 @@
+@(personform:Form[Person],id:String="")(implicit req: RequestHeader, messages: Messages)
+
+@import helper._
+
+@radioSelected(value: Option[String], valueCheck: String) = {
+	@if(value != None){
+		@if(value.get == valueCheck){
+			checked="checked"
+		}
+	}
+}
+
+@main("Welcome to Reactivemongo CRUD") {
+
+	@helper.form(action = (
+		if(id==""){
+			helper.CSRF(routes.Application.insert)
+		} else {
+			helper.CSRF(routes.Application.update(id))
+		}
+	), 'id -> "personform") {
+		@inputText(personform("name"), '_label -> "Name (String)", '_showConstraints -> false)
+		<input type="submit">
+	}
+		
+	<a href="javascript:$('#personform').submit()">Save</a>
+	<a href="@routes.Application.index">Back</a>
+	
+}
